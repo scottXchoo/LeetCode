@@ -1,0 +1,28 @@
+name: Sync to Algorithm-Problem-Solving Repository LeetCode Directory
+
+on:
+  push:
+    branches:
+      - main  # 이 레포의 main 브랜치에서 push가 되면
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: 'LeetCode' # 이 레포 이름
+        ref: 'main'  # 참고할 main 브랜치
+
+    - name: Copy files to Algorithm-Problem-Solving Repository LeetCode Directory
+      run: |
+        git config --global user.email "ckh0601@cau.ac.kr"
+        git config --global user.name "scottXchoo"
+        git clone https://github.com/scottXchoo/Algorithm-Problem-Solving.git
+        cp -r * Algorithm-Problem-Solving/LeetCode/
+        cd Algorithm-Problem-Solving/LeetCode/
+        git add .
+        git commit -m "Sync files from LeetCode Repository"
+        git push https://TOKEN@github.com/scottXchoo/Algorithm-Problem-Solving.git HEAD:main
+      env:
+        TOKEN: ${{ secrets.ACCESS_TOKEN }}  # B 레포지토리에 접근하기 위한 토큰
