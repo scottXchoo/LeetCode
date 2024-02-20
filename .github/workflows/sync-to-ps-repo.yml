@@ -1,9 +1,9 @@
-name: Sync to Algorithm-Problem-Solving Repository LeetCode Directory
+name: Sync LeetCode Directory to Algorithm-Problem-Solving Repository
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'LeetCode/**'  # LeetCode 디렉토리에 변화가 있을 때만 트리거됩니다.
 
 jobs:
   sync:
@@ -11,24 +11,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        repository: 'scottXchoo/LeetCode'
         ref: 'main'
 
-    - name: Setup temporary directory
+    - name: Copy new LeetCode directory to Algorithm-Problem-Solving Repository
       run: |
-        mkdir temp_dir
-        cp -r * temp_dir/
-        mv temp_dir/Algorithm-Problem-Solving temp_dir/temp_APS  # 임시로 이름 변경
-
-    - name: Copy files to Algorithm-Problem-Solving Repository LeetCode Directory
-      run: |
-        git config --global user.email "ckh0601@cau.ac.kr"
-        git config --global user.name "scottXchoo"
+        git config --global user.email "your-email@example.com"
+        git config --global user.name "your-github-username"
         git clone https://github.com/scottXchoo/Algorithm-Problem-Solving.git
-        cp -r temp_dir/* Algorithm-Problem-Solving/LeetCode/
-        cd Algorithm-Problem-Solving/LeetCode/
-        git add .
-        git commit -m "Sync files from LeetCode Repository"
-        git push https://TOKEN@github.com/scottXchoo/Algorithm-Problem-Solving.git HEAD:main
+        # 새로 푸시된 디렉토리의 이름을 확인하고 그 이름을 사용하여 복사합니다.
+        NEW_DIR=$(git diff --name-only HEAD^ HEAD | grep '^LeetCode/' | xargs -I {} dirname {})
+        cp -r $NEW_DIR Algorithm-Problem-Solving/LeetCode/
+        cd Algorithm-Problem-Solving
+        git add LeetCode/$NEW_DIR
+        git commit -m "Sync new LeetCode directory"
+        git push https://YOUR_ACCESS_TOKEN@github.com/scottXchoo/Algorithm-Problem-Solving.git HEAD:main
       env:
-        TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        YOUR_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  # 액세스 토큰
