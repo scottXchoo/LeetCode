@@ -15,8 +15,8 @@ jobs:
 
     - name: Copy new LeetCode directory to Algorithm-Problem-Solving Repository
       run: |
-        git config --global user.email "your-email@example.com"
-        git config --global user.name "your-github-username"
+        git config --global user.email "ckh0601@cau.ac.kr"
+        git config --global user.name "scottXchoo"
         git clone https://github.com/scottXchoo/Algorithm-Problem-Solving.git
         # 새로 푸시된 디렉토리의 이름을 확인하고 그 이름을 사용하여 복사합니다.
         NEW_DIR=$(git diff --name-only HEAD^ HEAD | grep '^LeetCode/' | xargs -I {} dirname {})
