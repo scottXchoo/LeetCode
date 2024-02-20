@@ -1,2 +1,2 @@
 # LeetCode
-LeetCode 문제 기록용
+LeetCode 문제 기록용!!
