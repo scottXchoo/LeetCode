@@ -10,5 +10,4 @@ class Solution:
             else:
                 dp[i] = dp[i-1] + nums[i]
 
-        print("dp", dp)
         return max(dp)
