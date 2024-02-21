@@ -2,5 +2,4 @@ name: Sync New Folder to Other Repository
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
