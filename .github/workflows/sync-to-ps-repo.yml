@@ -3,27 +3,3 @@ name: Sync New Folder to Other Repository
 on:
   push:
     branches: [main]
-
-jobs:
-  sync-to-repo-b:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: main
-
-    - name: Sync new folder to Other Repository
-      run: |
-        # 변경된 디렉토리를 찾습니다.
-        FOLDER_NAME=$(git diff --name-only HEAD^ HEAD | grep '/' | awk 'NR==1{print $1}' | cut -d/ -f1)
-        # 레포지토리 B를 클론합니다.
-        git clone https://github.com/scottXchoo/Algorithm-Problem-Solving.git
-        # 새로 생성된 폴더를 레포지토리 B의 L 폴더로 복사합니다.
-        cp -r ${FOLDER_NAME}/ Algorithm-Problem-Solving/LeetCode/
-        # 변경사항을 커밋하고 푸시합니다.
-        cd Algorithm-Problem-Solving
-        git add L/${FOLDER_NAME}
-        git commit -m "Sync ${FOLDER_NAME} to Repository Algorithm-Problem-Solving"
-        git push https://YOUR_ACCESS_TOKEN@github.com/scottXchoo/Algorithm-Problem-Solving.git HEAD:main
-      env:
-        YOUR_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
