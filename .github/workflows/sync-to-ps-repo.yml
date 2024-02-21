@@ -34,7 +34,9 @@ jobs:
         
         # 추가된 항목들 중 디렉토리만을 찾습니다.
         for ITEM in $ADDED_ITEMS; do
+          echo "ITEM: $ITEM"
           FULL_PATH="./${ITEM}"
+          echo "FULL_PATH: $FULL_PATH"
           if [[ -d ${FULL_PATH} ]]; then
             # 첫 번째 찾은 디렉토리의 이름을 NEW_DIR_NAME 변수에 할당합니다.
             NEW_DIR_NAME=${ITEM}
