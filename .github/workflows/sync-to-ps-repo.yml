@@ -3,8 +3,6 @@ name: Sync New Folder to Other Repository
 on:
   push:
     branches: [main]
-    paths:
-      - '*/'  # 폴더 생성에 반응합니다. 파일이 아닌 폴더에만 반응하려면 조건을 조정해야 합니다.
 
 jobs:
   sync-to-repo-b:
