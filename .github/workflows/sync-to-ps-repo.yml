@@ -13,6 +13,11 @@ jobs:
         ref: 'main'  # 또는 대상 브랜치
         fetch-depth: 0  # 모든 히스토리를 가져옵니다.
 
+    - name: Setup Git config
+      run: |
+        git config --global user.email "ckh0601@cau.ac.kr"
+        git config --global user.name "scottXchoo"
+
     - name: Find new directory
       run: |
         # 마지막 커밋에서 추가된 모든 파일 및 디렉토리 목록을 가져옵니다.
@@ -21,27 +26,19 @@ jobs:
         
         # 추가된 항목들 중 디렉토리만을 찾습니다.
         for ITEM in $ADDED_ITEMS; do
-          echo "ITEM: $ITEM"
-          FULL_PATH="./${ITEM}"
-          echo "FULL_PATH: $FULL_PATH"
-          if [[ -d ${FULL_PATH} ]]; then
+          if [[ -d $ITEM ]]; then
             # 첫 번째 찾은 디렉토리의 이름을 NEW_DIR_NAME 변수에 할당합니다.
-            NEW_DIR_NAME=${ITEM}
+            NEW_DIR_NAME=$ITEM
             echo "New directory found: ${NEW_DIR_NAME}"
             break  # 첫 번째 찾은 디렉토리만을 사용하고 루프를 종료합니다.
           fi
         done
         
         # 식별된 디렉토리가 없는 경우 스크립트를 종료합니다.
-        if [[ -z "${NEW_DIR_NAME}" ]]; then
+        if [[ -z "$NEW_DIR_NAME" ]]; then
           echo "No new directory found."
           exit 1
         fi
-
-    - name: Setup Git config
-      run: |
-        git config --global user.email "ckh0601@cau.ac.kr"
-        git config --global user.name "scottXchoo"
     
     - name: Clone Repository B
       run: |
@@ -53,8 +50,8 @@ jobs:
         
     - name: Copy new directory to Repository B/L
       run: |
-        cp -r ${NEW_DIR_NAME} ../Algorithm-Problem-Solving/LeetCode/
-        cd ../Algorithm-Problem-Solving
+        cp -r ${GITHUB_WORKSPACE}/${NEW_DIR_NAME} Algorithm-Problem-Solving/LeetCode/
+        cd Algorithm-Problem-Solving
         git add LeetCode/${NEW_DIR_NAME}
         git commit -m "Add new directory ${NEW_DIR_NAME} to LeetCode"
         git push https://YOUR_ACCESS_TOKEN@github.com/scottXchoo/Algorithm-Problem-Solving.git
