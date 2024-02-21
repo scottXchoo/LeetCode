@@ -19,6 +19,7 @@ jobs:
     
     - name: Clone Repository B
       run: |
+        rm -rf Algorithm-Problem-Solving
         git clone https://github.com/scottXchoo/Algorithm-Problem-Solving.git
         cd Algorithm-Problem-Solving
         # 레포지토리 B에서 L 디렉토리가 존재하는지 확인하고, 없으면 생성
