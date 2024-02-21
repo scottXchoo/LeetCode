@@ -13,19 +13,6 @@ jobs:
         ref: 'main'  # 또는 대상 브랜치
         fetch-depth: 0  # 모든 히스토리를 가져옵니다.
 
-    - name: Setup Git config
-      run: |
-        git config --global user.email "ckh0601@cau.ac.kr"
-        git config --global user.name "scottXchoo"
-    
-    - name: Clone Repository B
-      run: |
-        rm -rf Algorithm-Problem-Solving
-        git clone https://github.com/scottXchoo/Algorithm-Problem-Solving.git
-        cd Algorithm-Problem-Solving
-        # 레포지토리 B에서 L 디렉토리가 존재하는지 확인하고, 없으면 생성
-        mkdir -p LeetCode
-        
     - name: Find new directory
       run: |
         # 마지막 커밋에서 추가된 모든 파일 및 디렉토리 목록을 가져옵니다.
@@ -50,6 +37,19 @@ jobs:
           echo "No new directory found."
           exit 1
         fi
+
+    - name: Setup Git config
+      run: |
+        git config --global user.email "ckh0601@cau.ac.kr"
+        git config --global user.name "scottXchoo"
+    
+    - name: Clone Repository B
+      run: |
+        rm -rf Algorithm-Problem-Solving
+        git clone https://github.com/scottXchoo/Algorithm-Problem-Solving.git
+        cd Algorithm-Problem-Solving
+        # 레포지토리 B에서 L 디렉토리가 존재하는지 확인하고, 없으면 생성
+        mkdir -p LeetCode
         
     - name: Copy new directory to Repository B/L
       run: |
