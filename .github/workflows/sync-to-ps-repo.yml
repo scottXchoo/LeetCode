@@ -52,7 +52,7 @@ jobs:
       run: |
         cp -r ${GITHUB_WORKSPACE}/${NEW_DIR_NAME} Algorithm-Problem-Solving/LeetCode/
         cd Algorithm-Problem-Solving
-        git add LeetCode/${NEW_DIR_NAME}
+        git add .
         git commit -m "Add new directory ${NEW_DIR_NAME} to LeetCode"
         git push https://YOUR_ACCESS_TOKEN@github.com/scottXchoo/Algorithm-Problem-Solving.git
       env:
