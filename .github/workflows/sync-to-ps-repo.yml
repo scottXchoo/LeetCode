@@ -35,10 +35,10 @@ jobs:
         done
         
         # 식별된 디렉토리가 없는 경우 스크립트를 종료합니다.
-        if [[ -z "$NEW_DIR_NAME" ]]; then
-          echo "No new directory found."
-          exit 1
-        fi
+        # if [[ -z "$NEW_DIR_NAME" ]]; then
+        #   echo "No new directory found."
+        #   exit 1
+        # fi
     
     - name: Clone Repository B
       run: |
